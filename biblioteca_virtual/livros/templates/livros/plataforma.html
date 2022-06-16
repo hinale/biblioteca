@@ -1,0 +1,245 @@
+{% load static %}
+<DOCTYPE html>
+<html lang="pt-br">
+  <head>
+
+    <meta charset="utf-8">
+    <title>Biblioteca virtual</title>
+
+    <style>
+      :root {
+        --purple: #814af6;
+        --pink: #a66d9c;
+        --rose: #FFBBEC;
+        --lilac: #8b83b2;
+        --blue: #7392c1;
+        --light-blue: #A9C9FF;
+        --black: #0d0d0d;
+      }
+
+      body {
+        font-family: "Trebuchet Ms", sans-serif;
+        background-color: #A9C9FF;
+        background-image: linear-gradient(180deg, var(--light-blue) 0%, var(--rose) 100%);
+      }
+
+      .navbar {
+        display: block;
+        position: absolute;
+        background-color: rgba(255, 255, 255, 0.5);
+        top:0;
+        left:0;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+
+      .tituloNavbar {
+        font-size: 2em;
+        font-weight: bold;
+        color: var(--purple);
+      }
+
+      .estante {
+        display: flex;
+        flex-direction: row;
+        background-color: var(--lilac);
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        margin-top: 5em;
+        width: 100%;
+      }
+
+      .setaAnterior {
+        position: absolute;
+        left: 0;
+        margin-left: 1em;
+        height: 2em;
+      }
+
+      .setaProximo {
+        position: absolute;
+        right: 0;
+        margin-right: 1em;
+        height: 2em;
+      }
+
+      .livro {
+        display: block;
+        margin: 1em 0;
+        padding: 1em;
+        border-left: 1px solid var(--light-blue);
+        border-right: 1px solid var(--light-blue);
+      }
+
+      .tituloDescricao {
+        font-size: 1.5em;
+        font-weight: bold;
+        color: white;
+      }
+
+      .autorDescricao {
+        font-size: 1em;
+        color: var(--black);
+      }
+
+      .anoDescricao {
+        font-size: 0.8em;
+        color: var(--purple);
+      }
+
+      .tituloFormulario {
+        font-size: 1.2em;
+        font-weight: bold;
+        color: var(--blue);
+        text-align: center;
+      }
+
+      .formulario {
+        background-color: rgba(255, 255, 255, 0.3);
+        border-radius: 10px;
+        padding: 20px;
+        max-width: 500px;
+        margin: 0 auto;
+        margin-top: 1em;
+        box-shadow: 0px 0px 10px var(--black);
+        text-align: center;
+      }
+
+      .img {
+        width: 8em;
+        height: 8em;
+        margin-top: -6em;
+      }
+
+      .campo {
+        display: flex;
+        flex-direction: column;
+        margin: 1em 0;
+        align-items: center;
+      }
+
+      input{
+        height: 40px;
+        width:  80%;
+        font-size: 18px;
+        margin-bottom: 10px;
+        background-color: #fff;
+        padding-left: 40px;
+        border: none;
+        background-repeat: no-repeat;
+        background-position: 10px;
+      }
+
+      input.autor{
+        background-image: url({% static 'livros/img/profile.png' %});
+        background-size: 30px;
+      }
+
+      input.titulo{
+        background-image: url({% static 'livros/img/binders.png' %});
+        background-size: 30px;
+      }
+
+      input.ano{
+        background-image: url({% static 'livros/img/deadline.png' %});
+        background-size: 30px;
+      }
+
+      input.submit{
+        color: #fff;
+        background-color: #f79300;
+        border: 2px solid #db7d00;
+        border-radius: 20px;
+        padding: 5px 20px;
+        height: 45px;
+        width: 90%;
+        background: linear-gradient(to bottom, #faa600, #f68a00);
+      }
+
+      .footer {
+        display: block;
+        position: relative;
+        background-color: rgba(255, 255, 255, 0.5);
+        bottom:0;
+        left:0;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        margin: 5em 0;
+      }
+
+      .copyright {
+        position: absolute;
+        color: #fff;
+        font-size: 12px;
+        bottom: 0;
+        right: 50%;
+        transform: translate(50%);
+        text-align: center;
+      }
+    </style>
+
+  </head>
+  <body>
+
+    <div class="navbar">
+      <h1 class="tituloNavbar">Biblioteca Virtual</h1>
+    </div>
+
+    <div class="estante">
+      <div class="seta">
+        <img class="setaAnterior" src="{% static 'livros/img/anterior.png' %}" alt="seta">
+      </div>
+      {% for livro in livros %}
+        <div class="livro">
+          <div class="descricao">
+            <h2 class="tituloDescricao">{{ livro.titulo }}</h2>
+            <p class="autorDescricao">{{ livro.autor }}</p>
+            <p class="anoDescricao">{{ livro.ano }}</p>
+          </div>
+        </div>
+      {% endfor %}
+      <div class="seta">
+        <img class="setaProximo" src="{% static 'livros/img/proximo.png' %}" alt="seta">
+      </div>
+    </div>
+
+    <div class="tituloFormulario">
+      <h2>Cadastre um livro aqui:</h2>
+    </div>
+
+    <div class="formulario">
+      <form action="{% url 'cadastro_livro' %}" method="POST"> {% csrf_token %}
+
+        <div class="campo">
+          <input class="titulo" type="text" name="titulo" placeholder="Digite o título do livro">
+        </div>
+
+        <div class="campo">
+          <input class="autor" type="text" name="autor" placeholder="Digite o autor da obra">
+        </div>
+
+        <div class="campo">
+          <input class="ano" type="number" name="ano" placeholder="Digite o ano de lançamento">
+        </div>
+
+        <div class="campo">
+          <input class="submit" type="submit" value="Cadastrar">
+        </div>
+          
+      </form>
+    </div>
+    
+    <div class="footer">
+      <div class="copyright">
+        <p>&copy; Copyright 2022 - Letícia Amaral de Lara</p>
+        <p>Construdelas - Python - WoMakersCode</p>
+      </div> 
+    </div>
+
+  </body>
+</html>

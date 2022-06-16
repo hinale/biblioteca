@@ -1,0 +1,131 @@
+{% load static %}
+<DOCTYPE html>
+<html lang="pt-br">
+  <head>
+
+    <meta charset="utf-8">
+    <title>Cadastro</title>
+
+    <style>
+      :root {
+        --purple: #814af6;
+        --pink: #a66d9c;
+        --rose: #FFBBEC;
+        --lilac: #8b83b2;
+        --blue: #7392c1;
+        --light-blue: #A9C9FF;
+        --black: #0d0d0d;
+      }
+
+      body {
+        font-family: "Trebuchet Ms", sans-serif;
+        background-color: #A9C9FF;
+        background-image: linear-gradient(180deg, var(--light-blue) 0%, var(--rose) 100%);
+      }
+
+      .formulario {
+        background-color: rgba(255, 255, 255, 0.3);
+        border-radius: 10px;
+        padding: 20px;
+        max-width: 500px;
+        margin: 0 auto;
+        margin-top: 10em;
+        box-shadow: 0px 0px 10px var(--black);
+        text-align: center;
+      }
+
+      .img {
+        width: 8em;
+        height: 8em;
+        margin-top: -6em;
+      }
+
+      .campo {
+        display: flex;
+        flex-direction: column;
+        margin: 1em 0;
+        align-items: center;
+      }
+
+      input{
+        height: 40px;
+        width:  80%;
+        font-size: 18px;
+        margin-bottom: 10px;
+        background-color: #fff;
+        padding-left: 40px;
+        border: none;
+        background-repeat: no-repeat;
+        background-position: 10px;
+      }
+
+      input.username {
+        background-image: url({% static 'livros/img/profile.png' %});
+        background-size: 30px;
+      }
+
+      input.email{
+        background-image: url({% static 'livros/img/mail.png' %});
+        background-size: 30px;
+      }
+
+      input.senha{
+        background-image: url({% static 'livros/img/laptop.png' %});
+        background-size: 30px;
+      }
+
+      input.submit{
+        color: #fff;
+        background-color: #f79300;
+        border: 2px solid #db7d00;
+        border-radius: 20px;
+        padding: 5px 20px;
+        height: 45px;
+        width: 90%;
+        background: linear-gradient(to bottom, #faa600, #f68a00);
+      }
+
+      .copyright {
+        position: absolute;
+        color: #fff;
+        font-size: 12px;
+        bottom: 0;
+        right: 50%;
+        transform: translate(50%);
+        text-align: center;
+      }
+    </style>
+
+  </head>
+  <body>
+
+    <div class="formulario">
+      <form action="{% url 'cadastro' %}" method="POST"> {% csrf_token %}
+        <img class="img" src="{% static 'livros/img/img.png' %}" alt="perfil">
+
+        <div class="campo">
+          <input class="username" type="text" name="username" placeholder="Digite o nome do usuário">
+        </div>
+
+        <div class="campo">
+          <input class="email" type="email" name="email" placeholder="Digite o e-mail">
+        </div>
+
+        <div class="campo">
+          <input class="senha" type="password" name="senha" placeholder="Digite a senha">
+        </div>
+
+        <div class="campo">
+          <input class="submit" type="submit" value="Cadastrar">
+        </div>
+          
+      </form>
+    </div>
+
+    <div class="copyright">
+      <p>&copy; Copyright 2022 - Letícia Amaral de Lara</p>
+      <p>Construdelas - Python - WoMakersCode</p>
+    </div>
+
+  </body>
+</html>
